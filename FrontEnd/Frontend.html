@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DriveHub Frontend</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family:'Poppins', sans-serif;
+      letter-spacing: 1px;
+      background: white;
+      color: #222;
+    }
+    header {
+      background:#18cfe0;
+      color: white;
+      padding: 9px 24px;
+    }
+
+    .logo-container {
+     display: flex;
+     align-items: center;
+     gap: 12px;
+    }
+   .logo {
+      width: 150px;
+      height: auto; 
+    }
+    header h1 {
+      margin: 0;
+       font-family: 'Cinzel', serif;
+       letter-spacing: 2px;
+      font-size: 24px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      padding: 18px;
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #16deca;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .primary { background: #0226db; color: white; }
+    .secondary { background: #e6ecff; color: #050aac; }
+    .danger { background: #c62828; color: white; }
+    .list {
+      margin-top: 14px;
+      border-top: 1px solid #eee;
+      padding-top: 12px;
+      max-height: 320px;
+      overflow: auto;
+    }
+    .item {
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #fafafa;
+    }
+    .item h3 {
+      margin: 0 0 6px 0;
+      font-size: 16px;
+    }
+    .item p {
+      margin: 4px 0;
+      font-size: 14px;
+    }
+    .status {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #eef4ff;
+      color: #163269;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+    .small {
+      font-size: 12px;
+      color: #666;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+  <div class="logo-container">
+    <img src="drivehublog.png" alt="DriveHub Logo" class="logo">
+    <h1>DriveHub</h1>
+  </div>
+</header>
+  <div class="container">
+    <div class="card" style="margin-bottom:20px;">
+      <h2>API Settings</h2>
+      <label for="apiBase">API Base URL</label>
+      <input id="apiBase" value="/api" />
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Cars CRUD</h2>
+        <label>Car ID (for update/delete)</label>
+        <input id="carid" type="number" placeholder="e.g. 1" />
+
+        <label>Name</label>
+        <input id="car_name" placeholder="Honda Fit" />
+
+        <div class="row">
+          <div>
+            <label>Image</label>
+            <input id="car_image" placeholder="hondafit.jpg" />
+          </div>
+          <div>
+            <label>Price</label>
+            <input id="car_price" type="number" placeholder="1800" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Make</label>
+            <input id="car_make" placeholder="Honda" />
+          </div>
+          <div>
+            <label>Model</label>
+            <input id="car_model" placeholder="Fit" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Year</label>
+            <input id="car_year" type="number" placeholder="2022" />
+          </div>
+          <div>
+            <label>Fuel Type</label>
+            <input id="car_fuel_type" placeholder="Petrol" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Seats</label>
+            <input id="car_seats" type="number" placeholder="5" />
+          </div>
+          <div>
+            <label>Transmission</label>
+            <input id="car_transmission" placeholder="Automatic" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Air Conditioning</label>
+            <select id="car_air_conditioning">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div>
+            <label>Availability</label>
+            <select id="car_availability">
+              <option value="True">True</option>
+              <option value="False">False</option>
+            </select>
+          </div>
+        </div>
+
+        <label>Description</label>
+        <textarea id="car_description" placeholder="Comfortable family car"></textarea>
+
+        <div class="actions">
+          <button class="primary" type="button" onclick="getCars()">Get Cars</button>
+          <button class="primary" type="button" onclick="createCar()">Add Car</button>
+          <button class="secondary" type="button" onclick="updateCar()">Update Car</button>
+          <button class="danger" type="button" onclick="deleteCar()">Delete Car</button>
+        </div>
+
+        <div id="carsList" class="list"></div>
+      </section>
+
+      <section class="card">
+        <h2>Customers CRUD</h2>
+        <label>User ID (for update/delete)</label>
+        <input id="userid" type="number" placeholder="e.g. 1" />
+
+        <label>Username</label>
+        <input id="user_username" placeholder="Montana" />
+
+        <div class="row">
+          <div>
+            <label>Password</label>
+            <input id="user_password" type="password" placeholder="password123" />
+          </div>
+          <div>
+            <label>Phone</label>
+            <input id="user_phone" placeholder="59220788" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Email</label>
+            <input id="user_email" placeholder="mont@example.com" />
+          </div>
+          <div>
+            <label>User Type</label>
+            <select id="user_type">
+              <option value="User">User</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" type="button" onclick="getUsers()">Get Customers</button>
+          <button class="primary" type="button" onclick="createUser()">Add Customer</button>
+          <button class="secondary" type="button" onclick="updateUser()">Update Customer</button>
+          <button class="danger" type="button" onclick="deleteUser()">Delete Customer</button>
+        </div>
+
+        <div id="usersList" class="list"></div>
+      </section>
+
+      <section class="card">
+        <h2>Bookings CRUD</h2>
+        <label>Booking ID (for update/delete)</label>
+        <input id="bookingid" type="number" placeholder="e.g. 1" />
+
+        <div class="row">
+          <div>
+            <label>User ID</label>
+            <input id="booking_userid" type="number" placeholder="1" />
+          </div>
+          <div>
+            <label>Car ID</label>
+            <input id="booking_carid" type="number" placeholder="1" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Start Date</label>
+            <input id="booking_startdate" type="date" />
+          </div>
+          <div>
+            <label>End Date</label>
+            <input id="booking_enddate" type="date" />
+          </div>
+        </div>
+
+        <div class="small">Total cost is calculated automatically by the API when creating a booking.</div>
+
+        <div class="actions">
+          <button class="primary" type="button" onclick="getBookings()">Get Bookings</button>
+          <button class="primary" type="button" onclick="createBooking()">Add Booking</button>
+          <button class="secondary" type="button" onclick="updateBooking()">Update Booking</button>
+          <button class="danger" type="button" onclick="deleteBooking()">Delete Booking</button>
+        </div>
+
+        <div id="bookingsList" class="list"></div>
+      </section>
+    </div>
+
+    <div id="status" class="status">Ready.</div>
+  </div>
+
+  <script>
+    function apiBase() {
+      return document.getElementById('apiBase').value.trim();
+    }
+
+    function setStatus(message) {
+      document.getElementById('status').textContent = message;
+    }
+
+    async function parseResponse(response) {
+      const text = await response.text();
+      try {
+        return text ? JSON.parse(text) : {};
+      } catch {
+        return text;
+      }
+    }
+
+    async function request(path, options = {}) {
+      const response = await fetch(`${apiBase()}${path}`, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          ...(options.headers || {})
+        },
+        ...options
+      });
+
+      const data = await parseResponse(response);
+
+      if (!response.ok) {
+        throw new Error(typeof data === 'string' ? data : JSON.stringify(data, null, 2));
+      }
+
+      return data;
+    }
+
+    function carPayload(includeEmpty = false) {
+      const payload = {
+        name: document.getElementById('car_name').value,
+        image: document.getElementById('car_image').value,
+        price: document.getElementById('car_price').value,
+        description: document.getElementById('car_description').value,
+        make: document.getElementById('car_make').value,
+        model: document.getElementById('car_model').value,
+        year: document.getElementById('car_year').value,
+        fuel_type: document.getElementById('car_fuel_type').value,
+        seats: document.getElementById('car_seats').value,
+        transmission: document.getElementById('car_transmission').value,
+        air_conditioning: document.getElementById('car_air_conditioning').value,
+        availability: document.getElementById('car_availability').value
+      };
+
+      if (includeEmpty) return payload;
+
+      return Object.fromEntries(Object.entries(payload).filter(([_, v]) => v !== ''));
+    }
+
+    function userPayload(includeEmpty = false) {
+      const payload = {
+        username: document.getElementById('user_username').value,
+        password: document.getElementById('user_password').value,
+        phone: document.getElementById('user_phone').value,
+        email: document.getElementById('user_email').value,
+        user_type: document.getElementById('user_type').value
+      };
+
+      if (includeEmpty) return payload;
+
+      return Object.fromEntries(Object.entries(payload).filter(([_, v]) => v !== ''));
+    }
+
+    function bookingPayload(includeEmpty = false) {
+      const payload = {
+        userid: document.getElementById('booking_userid').value,
+        carid: document.getElementById('booking_carid').value,
+        startdate: document.getElementById('booking_startdate').value,
+        enddate: document.getElementById('booking_enddate').value
+      };
+
+      if (includeEmpty) return payload;
+
+      return Object.fromEntries(Object.entries(payload).filter(([_, v]) => v !== ''));
+    }
+    async function getCars() {
+        try {
+            const data = await request('/cars');
+            document.getElementById('carsList').innerHTML =
+                `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            setStatus('Cars loaded successfully.');
+        } catch (error) {
+            setStatus('Error loading cars:\n' + error.message);
+        }
+    }
+
+    async function createCar() {
+      try {
+        const data = await request('/cars', {
+          method: 'POST',
+          body: JSON.stringify(carPayload())
+        });
+        setStatus('Car created successfully.\n' + JSON.stringify(data, null, 2));
+        getCars();
+      } catch (error) {
+        setStatus('Error creating car:\n' + error.message);
+      }
+    }
+
+    async function updateCar() {
+      try {
+        const id = document.getElementById('carid').value;
+        if (!id) throw new Error('Enter Car ID first.');
+
+        const data = await request(`/cars/${id}`, {
+          method: 'PUT',
+          body: JSON.stringify(carPayload())
+        });
+        setStatus('Car updated successfully.\n' + JSON.stringify(data, null, 2));
+        getCars();
+      } catch (error) {
+        setStatus('Error updating car:\n' + error.message);
+      }
+    }
+
+    async function deleteCar() {
+      try {
+        const id = document.getElementById('carid').value;
+        if (!id) throw new Error('Enter Car ID first.');
+
+        const data = await request(`/cars/${id}`, { method: 'DELETE' });
+        setStatus('Car deleted successfully.\n' + JSON.stringify(data, null, 2));
+        getCars();
+      } catch (error) {
+        setStatus('Error deleting car:\n' + error.message);
+      }
+    }
+
+    async function getUsers() {
+        try {
+            const data = await request('/users');
+            document.getElementById('usersList').innerHTML =
+                `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            setStatus('Customers loaded successfully.');
+        } catch (error) {
+            setStatus('Error loading customers:\n' + error.message);
+        }
+    }
+
+    async function createUser() {
+      try {
+        const data = await request('/users', {
+          method: 'POST',
+          body: JSON.stringify(userPayload())
+        });
+        setStatus('Customer created successfully.\n' + JSON.stringify(data, null, 2));
+        getUsers();
+      } catch (error) {
+        setStatus('Error creating customer:\n' + error.message);
+      }
+    }
+
+    async function updateUser() {
+      try {
+        const id = document.getElementById('userid').value;
+        if (!id) throw new Error('Enter User ID first.');
+
+        const data = await request(`/users/${id}`, {
+          method: 'PUT',
+          body: JSON.stringify(userPayload())
+        });
+        setStatus('Customer updated successfully.\n' + JSON.stringify(data, null, 2));
+        getUsers();
+      } catch (error) {
+        setStatus('Error updating customer:\n' + error.message);
+      }
+    }
+
+    async function deleteUser() {
+      try {
+        const id = document.getElementById('userid').value;
+        if (!id) throw new Error('Enter User ID first.');
+
+        const data = await request(`/users/${id}`, { method: 'DELETE' });
+        setStatus('Customer deleted successfully.\n' + JSON.stringify(data, null, 2));
+        getUsers();
+      } catch (error) {
+        setStatus('Error deleting customer:\n' + error.message);
+      }
+    }
+
+    async function getBookings() {
+        try {
+            const data = await request('/bookings');
+            document.getElementById('bookingsList').innerHTML =
+                `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            setStatus('Bookings loaded successfully.');
+        } catch (error) {
+            setStatus('Error loading bookings:\n' + error.message);
+        }
+    }
+
+    async function createBooking() {
+      try {
+        const data = await request('/bookings', {
+          method: 'POST',
+          body: JSON.stringify(bookingPayload())
+        });
+        setStatus('Booking created successfully.\n' + JSON.stringify(data, null, 2));
+        getBookings();
+        getCars();
+      } catch (error) {
+        setStatus('Error creating booking:\n' + error.message);
+      }
+    }
+
+    async function updateBooking() {
+      try {
+        const id = document.getElementById('bookingid').value;
+        if (!id) throw new Error('Enter Booking ID first.');
+
+        const data = await request(`/bookings/${id}`, {
+          method: 'PUT',
+          body: JSON.stringify(bookingPayload())
+        });
+        setStatus('Booking updated successfully.\n' + JSON.stringify(data, null, 2));
+        getBookings();
+      } catch (error) {
+        setStatus('Error updating booking:\n' + error.message);
+      }
+    }
+
+    async function deleteBooking() {
+      try {
+        const id = document.getElementById('bookingid').value;
+        if (!id) throw new Error('Enter Booking ID first.');
+
+        const data = await request(`/bookings/${id}`, { method: 'DELETE' });
+        setStatus('Booking deleted successfully.\n' + JSON.stringify(data, null, 2));
+        getBookings();
+        getCars();
+      } catch (error) {
+        setStatus('Error deleting booking:\n' + error.message);
+      }
+    }
+  </script>
+</body>
+</html>
