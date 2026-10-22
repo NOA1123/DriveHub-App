@@ -1,9 +1,5 @@
 # DriveHub REST API (Laravel)
 
-Name:
-
-1. Mungroo Dhanishta – 2412436
-2. Appadoo Ooteshwar - 2413736
 
 ## Overview
 
